@@ -286,36 +286,40 @@ OR city = 'Львів' AND customer_type = 'company'
 
 <img width="1484" height="370" alt="image" src="https://github.com/user-attachments/assets/4f9c3a94-8393-4fa2-b66b-191a0684381a" />
 
-### Вибрати всі замовлення з таблиці orders, у яких місто доставки — «Київ» і дата замовлення — 20 січня 2024 року.
+### Вибирати категорії з іменами «Електроніка» або «Побутова техніка», де є опис.
 
 ```sql
 -- Завдання 2.3
-SELECT * FROM orders
-WHERE ship_city = 'Київ'
-  AND order_date = '2024-01-20'
+SELECT category_id, category_name, description
+FROM categories
+WHERE category_name IN ('Електроніка', 'Побутова техніка') 
+  AND description IS NOT NULL;
+
 ```
 
 Результат: 
 
 Скріншот
 
-<img width="1484" height="354" alt="image" src="https://github.com/user-attachments/assets/d187cf5c-b48a-47f5-821b-6151a5702d2c" />
+<img width="877" height="293" alt="image" src="https://github.com/user-attachments/assets/9ed32ef0-6bf8-4e8c-8153-f664a4321a4c" />
+
 
 ### вибирає ідентифікатор замовлення, ідентифікатор клієнта, дату замовлення та місто доставки з таблиці orders для тих замовлень, що були зроблені у місті «Київ» у період '2024-01-01' і '2024-06-30'.
 
 ```sql
 -- Завдання 2.3
-SELECT order_id, customer_id, order_date, ship_city
-FROM orders
-WHERE ship_city = 'Київ'
-AND order_date BETWEEN '2024-01-01' AND '2024-06-30';
+SELECT customer_id, company_name, city
+FROM customers
+WHERE NOT customer_type = 'individual'
+  AND city NOT IN ('Київ', 'Одеса');
+
 ```
 
 Результат: 
 
 Скріншот
 
-<img width="655" height="439" alt="image" src="https://github.com/user-attachments/assets/36bd6d65-e961-4747-9172-aaf6a889a0eb" />
+<img width="649" height="313" alt="image" src="https://github.com/user-attachments/assets/21346e57-c5fe-4a5e-94ea-f0ee5efaecc1" />
 
 ### Вибрати номер замовлення, дату, місто доставки та статус із таблиці orders для всіх замовлень, оформлених починаючи з 1 січня 2024 року, крім тих, що вже мають статус «delivered».
 
@@ -570,10 +574,377 @@ LIMIT 5 OFFSET 5;
 
 <img width="873" height="339" alt="image" src="https://github.com/user-attachments/assets/30c4d999-d7af-47ed-a37c-f66e073d6025" />
 
+### Знайти товари, в назві яких є "Samsung" або "Apple", але немає слова "чохол".
+
+```sql
+-- Завдання 1.1
+SELECT *
+FROM products
+WHERE (product_name ILIKE '%Samsung%' OR product_name ILIKE '%Apple%')
+  AND product_name NOT ILIKE '%чохол%';
+
+```
+
+Результат: 
+
+Скріншот
+
+<img width="1381" height="336" alt="image" src="https://github.com/user-attachments/assets/d7da68ec-190f-4128-98f5-6bbd99f5a18d" />
+
+### Знайти клієнтів, чиє ім’я починається на «А» або містить «енко», але виключає тих, хто з Києва.
+
+```sql
+-- Завдання 1.2
+SELECT customer_id, contact_name, city, email
+FROM customers
+WHERE (contact_name LIKE 'А%' OR contact_name LIKE '%енко%')
+  AND city NOT LIKE 'Київ';
+```
+
+Результат: 
+
+Скріншот
+
+<img width="1080" height="360" alt="image" src="https://github.com/user-attachments/assets/41f94584-9054-416f-9c45-b70035f977e6" />
+
+### Вивести клієнтів з контактним ім’ям, що починається на «А» або містить «енко», але не з Києва
+
+```sql
+-- Завдання 1.2
+SELECT customer_id, contact_name, city, email
+FROM customers
+WHERE (contact_name LIKE 'А%' OR contact_name LIKE '%енко%')
+  AND city NOT LIKE 'Київ';
+
+```
+
+Результат: 
+
+Скріншот
+
+<img width="943" height="353" alt="image" src="https://github.com/user-attachments/assets/b1868b10-fc47-4c13-8374-063f8815d899" />
+
+### Вивести клієнтів із Львова, Одеси або Харкова, але з email, відмінним від Gmail.
+
+```sql
+-- Завдання 1.2
+SELECT customer_id, contact_name, city, email, registration_date
+FROM customers
+WHERE city IN ('Львів', 'Одеса', 'Харків')
+  AND email NOT LIKE '%@gmail.com';
+
+```
+
+Результат: 
+
+Скріншот
+
+<img width="1026" height="335" alt="image" src="https://github.com/user-attachments/assets/658f661a-97b0-45df-a72b-aefb9f3613fe" />
+
+### Вивести фізичних осіб, чиє ім’я починається на «І» або «К», і телефон починається з коду України.
+
+```sql
+-- Завдання 1.2
+SELECT customer_id, contact_name, phone, customer_type
+FROM customers
+WHERE customer_type = 'individual'
+  AND (contact_name LIKE 'І%' OR contact_name LIKE 'К%')
+  AND phone LIKE '+380%';
+
+
+```
+
+Результат: 
+
+Скріншот
+
+<img width="856" height="360" alt="image" src="https://github.com/user-attachments/assets/bb4a5d55-8237-4af5-b393-eab5cf3d4349" />
+
+### Знайти товари дорожчі 20000 грн (категорії 1 або 2) АБО товари дешевші 5000 грн будь-якої категорії.
+
+```sql
+-- Завдання 2.1
+SELECT product_id, product_name, category_id, unit_price
+FROM products
+WHERE 
+      (unit_price > 20000 AND category_id IN (1, 2))
+   OR (unit_price < 5000);
+
+```
+
+Результат: 
+
+Скріншот
+
+<img width="838" height="338" alt="image" src="https://github.com/user-attachments/assets/abc8ed01-bc43-4f68-8320-d5db799adbd6" />
+
+### Вивести товари дорожчі за 15000 грн у категорії 3 або 4, або дешевші за 3000 грн і в наявності більше 50 шт.
+
+```sql
+-- Завдання 2.2
+SELECT product_id, product_name, category_id, unit_price, units_in_stock
+FROM products
+WHERE 
+    ((unit_price > 15000 AND category_id IN (3, 4))
+     OR (unit_price < 3000 AND units_in_stock > 50));
+
+```
+
+Результат: 
+
+Скріншот
+
+<img width="906" height="341" alt="image" src="https://github.com/user-attachments/assets/f9b33a04-3c4f-4719-9181-a4d794bc7c33" />
+
+### Вивести товари, які або зняті з продажу (discontinued = true) і коштують понад 10000,
+
+```sql
+-- Завдання 2.2
+SELECT product_id, product_name, unit_price, discontinued
+FROM products
+WHERE 
+    ((discontinued = true AND unit_price > 10000)
+     OR (discontinued = false AND unit_price < 2000));
+
+```
+
+Результат: 
+
+Скріншот
+
+<img width="694" height="255" alt="image" src="https://github.com/user-attachments/assets/2c1c9e54-5f64-4234-9587-88052c538a49" />
+
+### Вивести товари, які належать до категорій 2 або 5, і при цьому або дорожчі за 12000 грн, або мають більше 100 шт. на складі.
+
+```sql
+-- Завдання 2.2
+SELECT product_id, product_name, category_id, unit_price, units_in_stock
+FROM products
+WHERE 
+    (category_id IN (2, 5) 
+     AND (unit_price > 12000 OR units_in_stock > 100))
+
+```
+
+Результат: 
+
+Скріншот
+
+<img width="890" height="342" alt="image" src="https://github.com/user-attachments/assets/a8031812-b175-45b5-9485-f7bdd40806bf" />
+
+### Створити звіт товарів з 5+ різними умовами фільтрації одночасно.
+
+```sql
+-- Завдання 3.1
+SELECT product_id, product_name, category_id, unit_price, units_in_stock, units_on_order, discontinued
+FROM products
+WHERE unit_price BETWEEN 5000 AND 20000         -- ціновий діапазон
+  AND category_id IN (1, 3, 5)                  -- вибрані категорії
+  AND units_in_stock > 10                       -- є на складі
+  AND units_on_order < 50                       -- небагато замовлено
+  AND discontinued = false                      -- ще продається
+  AND product_name NOT LIKE '%чохол%';          -- виключаємо чохли
+
+```
+
+Результат: 
+
+Скріншот
+
+<img width="1185" height="238" alt="image" src="https://github.com/user-attachments/assets/0bd26ace-f405-49b0-b78a-7e643fd1d74a" />
+
+### Написати запит для аналізу клієнтської бази з множинними критеріями відбору.
+
+```sql
+-- Завдання 3.2
+SELECT customer_id, company_name, contact_name, city, customer_type, registration_date
+FROM customers
+WHERE city IN ('Київ', 'Львів', 'Одеса')
+  AND customer_type = 'individual'
+  AND registration_date BETWEEN '2023-01-01' AND '2024-12-31'
+  AND (email LIKE '%.ua' OR email LIKE '%.com')
+  AND phone IS NOT NULL;
+
+```
+
+Результат: 
+
+Скріншот
+
+<img width="1185" height="238" alt="image" src="https://github.com/user-attachments/assets/0bd26ace-f405-49b0-b78a-7e643fd1d74a" />
+
+### Вивести підрахунок кількість товарів з ціною менше 5000 грн.
+
+```sql
+-- Завдання 4.1
+SELECT COUNT(*) AS cheap_count
+FROM products
+WHERE unit_price < 5000;
+
+```
+
+Результат: 
+
+Скріншот
+
+<img width="312" height="209" alt="image" src="https://github.com/user-attachments/assets/f43c9bfc-859f-4fba-b925-a41fab0e775c" />
+
+### Вивести підрахунок кількість товарів з ціною від 5000 до 20000 грн.
+
+```sql
+-- Завдання 4.1
+SELECT COUNT(*) AS mid_count
+FROM products
+WHERE unit_price BETWEEN 5000 AND 20000;
+
+```
+
+Результат: 
+
+Скріншот
+
+<img width="315" height="244" alt="image" src="https://github.com/user-attachments/assets/d39fda75-15bd-46bd-9017-52312a04b968" />
+
+### Вивести підрахунок кількість товарів з ціною понад 20 000 грн.
+
+```sql
+-- Завдання 4.1
+SELECT COUNT(*) AS premium_count
+FROM products
+WHERE unit_price > 20000;
+
+```
+
+Результат: 
+
+Скріншот
+
+<img width="312" height="272" alt="image" src="https://github.com/user-attachments/assets/94a79c6a-503a-41f5-bcf1-e245b42db1a5" />
+
+### Вивести кількість клієнтів у кожному місті.
+
+```sql
+-- Завдання 4.2
+SELECT city, COUNT(*) AS customer_count
+FROM customers
+GROUP BY city
+ORDER BY customer_count DESC;
+
+```
+
+Результат: 
+
+Скріншот
+
+<img width="426" height="365" alt="image" src="https://github.com/user-attachments/assets/9f1f47d6-e242-429d-be48-2b418a14473c" />
+
+### Вивести кількість бізнесів vs фізичних осіб по містах.
+
+```sql
+-- Завдання 4.2
+SELECT city, customer_type, COUNT(*) AS count_type
+FROM customers
+GROUP BY city, customer_type
+ORDER BY city, count_type DESC;
+
+```
+
+Результат: 
+
+Скріншот
+
+<img width="443" height="301" alt="image" src="https://github.com/user-attachments/assets/2151ac04-a6ef-4d55-998b-8e27eb272129" />
+
+### Вивести ТОП-5 міст з найбільшою кількістю клієнтів.
+
+```sql
+-- Завдання 4.2
+SELECT city, COUNT(*) AS customer_count
+FROM customers
+GROUP BY city
+ORDER BY customer_count DESC
+LIMIT 5;
+
+```
+
+Результат: 
+
+Скріншот
+
+<img width="413" height="381" alt="image" src="https://github.com/user-attachments/assets/2f4c9877-8311-41e7-8717-d39531701977" />
+
+### Вивести клієнти з міста Київ.
+
+```sql
+-- Завдання 4.2
+SELECT customer_id, contact_name, company_name
+FROM customers
+WHERE city = 'Київ';
+
+```
+
+Результат: 
+
+Скріншот
+
+<img width="700" height="351" alt="image" src="https://github.com/user-attachments/assets/3e79df50-548e-4a87-943d-d72dd1842cf3" />
+
+### Вивести замовлення по місяцях.
+
+```sql
+-- Завдання 4.3
+SELECT DATE_TRUNC('month', order_date) AS month, COUNT(*) AS order_count
+FROM orders
+GROUP BY month
+ORDER BY month;
+
+```
+
+Результат: 
+
+Скріншот
+
+<img width="683" height="490" alt="image" src="https://github.com/user-attachments/assets/cc67eb50-932b-43f3-9dc9-5f94cdf9b115" />
+
+### Вивести замовлення по днях тижня.
+
+```sql
+-- Завдання 4.3
+SELECT TO_CHAR(order_date, 'Day') AS weekday, COUNT(*) AS order_count
+FROM orders
+GROUP BY weekday
+ORDER BY order_count DESC;
+
+```
+
+Результат: 
+
+Скріншот
+
+<img width="434" height="444" alt="image" src="https://github.com/user-attachments/assets/375b10f6-08ca-4bc7-b946-7edd059bfcf4" />
+
+### Вивести кількість замовлень у кожному тижні.
+
+```sql
+-- Завдання 4.3
+SELECT 
+    TO_CHAR(order_date, 'IYYY-IW') AS week,
+    COUNT(*) AS total_orders
+FROM orders
+GROUP BY week
+ORDER BY week;
+
+```
+
+Результат: підраховує кількість замовлень, групуючи їх по початку кожного тижня.
+
+Скріншот
+
+<img width="625" height="536" alt="image" src="https://github.com/user-attachments/assets/16241741-57b2-4e9b-8ada-5ac52f418583" />
 
 
 ## Висновки
 
 **Самооцінка**: 5
 
-**Обгрунтування**: [обґрунтування самооцінки]
+**Обгрунтування**: Виконав завдання на 3 рівень.
