@@ -402,6 +402,175 @@ SELECT * FROM customers WHERE company_name IS NOT NULL;
 
 <img width="1489" height="488" alt="image" src="https://github.com/user-attachments/assets/ab181b55-7a0e-4c5f-ad75-14aeff0b88a4" />
 
+### Вибирати клієнтів, у яких ім’я контакту починається на «І» або «К», і які живуть у Києві чи Львові.
+
+```sql
+-- Завдання 3.4
+SELECT customer_id, contact_name, city
+FROM customers
+WHERE (contact_name LIKE 'І%' OR contact_name LIKE 'К%')
+  AND city IN ('Київ', 'Львів');
+
+```
+
+Результат: 
+
+Скріншот
+
+<img width="891" height="300" alt="image" src="https://github.com/user-attachments/assets/38addbcf-05f8-48f8-9bf1-c642b75157e4" />
+
+### Вибирати клієнтів з українськими телефонами (+380), але не з Києва чи Харкова..
+
+```sql
+-- Завдання 3.4
+SELECT customer_id, contact_name, phone, city
+FROM customers
+WHERE city NOT IN ('Київ', 'Харків')
+  AND phone LIKE '+380%';
+
+```
+
+Результат: 
+
+Скріншот
+
+<img width="800" height="315" alt="image" src="https://github.com/user-attachments/assets/55f32c86-7e91-437b-b061-9e56126fa09c" />
+
+### Вибирати постачальників із Києва, Львова чи Одеси, у яких email закінчується на .com.
+
+```sql
+-- Завдання 3.4
+SELECT supplier_id, company_name, city, email
+FROM suppliers
+WHERE city IN ('Київ', 'Львів', 'Одеса')
+  AND email LIKE '%.com';
+
+```
+
+Результат: 
+
+Скріншот
+
+<img width="729" height="238" alt="image" src="https://github.com/user-attachments/assets/d0aa6b34-4765-4356-abb1-ea88f96755ca" />
+
+### Показати постачальників, у назві яких є слово «Торг» або «Market», і вказаний телефон.
+
+```sql
+-- Завдання 3.4
+SELECT supplier_id, company_name, phone
+FROM suppliers
+WHERE (company_name LIKE '%Техно%' OR company_name LIKE '%Market%')
+  AND phone IS NOT NULL;
+
+```
+
+Результат: 
+
+Скріншот
+
+<img width="507" height="287" alt="image" src="https://github.com/user-attachments/assets/499dc6a8-80fa-4be9-9133-511a81d1d8c9" />
+
+### Вивести постачальників із поштовими індексами Києва (02000–04999) або Львова (79000–79999).
+
+```sql
+-- Завдання 3.4
+SELECT supplier_id, company_name, postal_code, city
+FROM suppliers
+WHERE postal_code BETWEEN '02000' AND '04999'
+   OR postal_code BETWEEN '79000' AND '79999';
+
+```
+
+Результат: 
+
+Скріншот
+
+<img width="718" height="310" alt="image" src="https://github.com/user-attachments/assets/822962be-c0f4-4ffc-a07c-b7723169477b" />
+
+### Посортувати спочатку за містом (від А до Я), а в межах міста — за ім’ям контакту..
+
+```sql
+-- Завдання 3.5
+SELECT customer_id, contact_name, city, registration_date
+FROM customers
+ORDER BY city ASC, contact_name ASC;
+
+```
+
+Результат: 
+
+Скріншот
+
+<img width="844" height="346" alt="image" src="https://github.com/user-attachments/assets/d676c9e9-ad81-4c51-9e1c-13c5ae4c1ace" />
+
+### Спочатку посортувати за назвою області (від А до Я), а всередині області — компанії у зворотному алфавіті.
+
+```sql
+-- Завдання 3.5
+SELECT s.supplier_id, s.company_name, r.region_name, s.city
+FROM suppliers s
+JOIN regions r ON s.region_id = r.region_id
+ORDER BY r.region_name ASC, s.company_name DESC;
+
+```
+
+Результат: 
+
+Скріншот
+
+<img width="880" height="336" alt="image" src="https://github.com/user-attachments/assets/5a676e46-eac4-4bdd-8769-95bb4d6c4596" />
+
+### Спочатку посортувати по категоріях, а в межах категорії — найдорожчі товари вище.
+
+```sql
+-- Завдання 3.5
+SELECT product_id, product_name, category_id, unit_price, units_in_stock
+FROM products
+ORDER BY category_id ASC, unit_price DESC;
+
+```
+
+Результат: 
+
+Скріншот
+
+<img width="939" height="348" alt="image" src="https://github.com/user-attachments/assets/e8ae4d73-ddd2-412d-8e67-577899c4eb6f" />
+
+### Показати клієнтів 11–15 за датою реєстрації (новіші зверху).
+
+```sql
+-- Завдання 3.4
+SELECT customer_id, contact_name, city, registration_date
+FROM customers
+ORDER BY registration_date DESC
+LIMIT 5 OFFSET 10;
+
+```
+
+Результат: 
+
+Скріншот
+
+<img width="710" height="349" alt="image" src="https://github.com/user-attachments/assets/04158281-7ced-4c46-9cd9-4d242eafa1e4" />
+
+### Вивести «другу сторінку» постачальників по алфавіту (записи 6–10).
+
+```sql
+-- Завдання 3.5
+SELECT supplier_id, company_name, city, email
+FROM suppliers
+ORDER BY company_name ASC
+LIMIT 5 OFFSET 5;
+
+```
+
+Результат: 
+
+Скріншот
+
+<img width="873" height="339" alt="image" src="https://github.com/user-attachments/assets/30c4d999-d7af-47ed-a37c-f66e073d6025" />
+
+
 
 ## Висновки
 
