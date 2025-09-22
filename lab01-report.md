@@ -8,7 +8,7 @@
 
 **Обраний рівень складності:** 3
 
-**Посилання на проєкт:** https://siollrknrvddtvhmlbbg.supabase.com
+**Посилання на проєкт:** https://supabase.com/dashboard/project/siollrknrvddtvhmlbbg/editor/17439?schema=public
 
 ## Виконання завдань
 
