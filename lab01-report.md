@@ -30,7 +30,8 @@ SELECT * FROM customers
 
 ```sql
 -- Завдання 1.2
-SELECT product_name, unit_price FROM products
+SELECT product_name, unit_price
+FROM products
 ```
 
 Результат: Виведено тільки назви товарів і їхні ціни з таблиці products.
@@ -43,7 +44,8 @@ SELECT product_name, unit_price FROM products
 
 ```sql
 --- Завдання 1.3
-SELECT first_name, middle_name, phone,email FROM employees
+SELECT first_name, middle_name, phone,email
+FROM employees
 ```
 
 Результат: Показані контактні дані всіх співробітників (ім'я, прізвище, телефон, email)..
@@ -56,7 +58,8 @@ SELECT first_name, middle_name, phone,email FROM employees
 
 ```sql
 -- Завдання 2.1
-SELECT * FROM customers WHERE city = 'Київ'
+SELECT * FROM customers
+WHERE city = 'Київ'
 ```
 
 Результат: Знайдено всіх клієнтів з міста Київ.
@@ -69,7 +72,8 @@ SELECT * FROM customers WHERE city = 'Київ'
 
 ```sql
 -- Завдання 2.2
-SELECT * FROM products WHERE unit_price > 25000
+SELECT * FROM products
+WHERE unit_price > 25000
 ```
 
 Результат: Виведено товари, які коштують більше 25000 грн.
@@ -86,7 +90,7 @@ SELECT * FROM orders
 WHERE order_status = 'delivered'
 ```
 
-Результат: 
+Результат: Знайдено замовлення зі статусом 'delivered'. Ці замовлення доставлені клієнтам.
 
 Скріншот
 
@@ -100,7 +104,7 @@ SELECT * FROM employees
 WHERE title like '%продаж%'
 ```
 
-Результат: 
+Результат: Знайдено співробітників, чия посада містить слово 'продаж'.
 
 Скріншот
 
@@ -114,7 +118,7 @@ SELECT * FROM products
 ORDER BY unit_price ASC 
 ```
 
-Результат: 
+Результат: Виведено товари, відсортовані за ціною від найдешевшого до найдорожчого.
 
 Скріншот
 
@@ -124,10 +128,11 @@ ORDER BY unit_price ASC
 
 ```sql
 -- Завдання 3.2
-SELECT * FROM customers ORDER BY contact_name
+SELECT * FROM customers
+ORDER BY contact_name
 ```
 
-Результат: 
+Результат: Показано клієнтів, відсортованих в алфавітному порядку за іменем контактної особи.
 
 Скріншот
 
@@ -141,7 +146,7 @@ SELECT * FROM orders
 ORDER BY order_date
 ```
 
-Результат:
+Результат: Виведено замовленя, відсортовані за датою від найстаріших до найновіших.
 
 Скріншот
 
@@ -154,7 +159,7 @@ SELECT * FROM products
 ORDER BY unit_price DESC LIMIT 10
 ```
 
-Результат: 
+Результат: Виведено товари з найвищою ціною, відсортовані від найдорожчого до найдешевшого.
 
 Скріншот
 
@@ -164,10 +169,11 @@ ORDER BY unit_price DESC LIMIT 10
 
 ```sql
 -- Завдання 4.3
-SELECT * FROM orders ORDER BY order_date DESC LIMIT 5 
+SELECT * FROM orders
+ORDER BY order_date DESC LIMIT 5 
 ```
 
-Результат: 
+Результат: Виведено 5 замовлень з найновішими датами, відсортованих у зворотному хронологічному порядку.
 
 Скріншот
 
@@ -180,7 +186,7 @@ SELECT * FROM orders ORDER BY order_date DESC LIMIT 5
 SELECT * FROM customers ORDER BY contact_name ASC LIMIT 8 
 ```
 
-Результат: 
+Результат: Отримано перші 8 клієнтів, відсортованих в алфавітному порядку за іменем.
 
 Скріншот
 
@@ -193,7 +199,7 @@ SELECT * FROM customers ORDER BY contact_name ASC LIMIT 8
 SELECT * FROM customers WHERE contact_name LIKE 'Іван%'
 ```
 
-Результат: 
+Результат: Знайдено клієнтів, чиї контактні імена починаються на 'Іван'.
 
 Скріншот
 
@@ -208,7 +214,7 @@ WHERE product_name LIKE '%phone%'
 OR product_name LIKE '%телефон%'
 ```
 
-Результат: 
+Результат: Виведено товари, назва яких містить слово 'phone' або 'телефон'.
 
 Скріншот
 
@@ -222,7 +228,7 @@ SELECT * FROM orders
 WHERE ship_via LIKE 'Нова%'
 ```
 
-Результат: 
+Результат: Знайдено замовлення, де назва доставки починається на 'Нова'.
 
 Скріншот
 
@@ -236,7 +242,7 @@ SELECT * FROM orders
 WHERE ship_via LIKE '%Пошта'
 ```
 
-Результат: 
+Результат: Знайдено замовлення, де назва доставки закінчується на 'Пошта'.
 
 Скріншот
 
@@ -251,7 +257,7 @@ SELECT * FROM regions
 WHERE region_name LIKE '%зька%'
 ```
 
-Результат: 
+Результат: Знайдено область, назва якої закінчується на 'зька'.
 
 Скріншот
 
@@ -265,7 +271,7 @@ SELECT * FROM products
 WHERE unit_price > 15000 AND unit_price < 50000
 ```
 
-Результат: 
+Результат: Знайдено товари, ціна яких знаходиться в діапазоні від 15000 до 50000 грн.
 
 Скріншот
 
@@ -280,7 +286,7 @@ WHERE city = 'Київ' AND customer_type = 'company'
 OR city = 'Львів' AND customer_type = 'company'
 ```
 
-Результат: 
+Результат: Знайдено клієнти, які є юридичними особами і знаходяться в містах Київ або Львів.
 
 Скріншот
 
@@ -297,14 +303,14 @@ WHERE category_name IN ('Електроніка', 'Побутова технік
 
 ```
 
-Результат: 
+Результат: Вибрано категорії, що відповідають зазначеним критеріям.
 
 Скріншот
 
 <img width="877" height="293" alt="image" src="https://github.com/user-attachments/assets/9ed32ef0-6bf8-4e8c-8153-f664a4321a4c" />
 
 
-### вибирає ідентифікатор замовлення, ідентифікатор клієнта, дату замовлення та місто доставки з таблиці orders для тих замовлень, що були зроблені у місті «Київ» у період '2024-01-01' і '2024-06-30'.
+### Вибирає ідентифікатор замовлення, ідентифікатор клієнта, дату замовлення та місто доставки з таблиці orders для тих замовлень, що були зроблені у місті «Київ» у період '2024-01-01' і '2024-06-30'.
 
 ```sql
 -- Завдання 2.3
@@ -315,7 +321,7 @@ WHERE NOT customer_type = 'individual'
 
 ```
 
-Результат: 
+Результат: Вибрані замовлення, яке відповідає зазначеним критеріям.
 
 Скріншот
 
@@ -331,7 +337,7 @@ WHERE order_date >= '2024-01-01'
 AND NOT order_status = 'delivered';
 ```
 
-Результат: 
+Результат: Вибрані замовлення, які були оформлені після 1 січня 2024 року та не мають статусу 'delivered'.
 
 Скріншот
 
@@ -348,7 +354,7 @@ WHERE (units_in_stock < reorder_level AND units_in_stock > 0)
 
 ```
 
-Результат: 
+Результат: Знайдено товари, що відповідають заданим критеріям: або мають недостатню кількість на складі, або мають понад 12 замовлених одиниць.
 
 Скріншот
 
@@ -361,7 +367,7 @@ WHERE (units_in_stock < reorder_level AND units_in_stock > 0)
 SELECT * FROM customers WHERE city IN ('Київ', 'Харків', 'Одеса', 'Дніпро');
 ```
 
-Результат: 
+Результат: Знайдено клієнтів, що знаходяться в одному з перерахованих міст.
 
 Скріншот
 
@@ -374,7 +380,7 @@ SELECT * FROM customers WHERE city IN ('Київ', 'Харків', 'Одеса',
 SELECT * FROM products WHERE unit_price BETWEEN 10000 AND 30000;
 ```
 
-Результат: 
+Результат: Знайдено товари, ціна яких знаходиться в діапазоні від 10000 до 30000 грн включно.
 
 Скріншот
 
@@ -387,7 +393,7 @@ SELECT * FROM products WHERE unit_price BETWEEN 10000 AND 30000;
 SELECT * FROM customers WHERE company_name IS NULL;
 ```
 
-Результат: 
+Результат: Вибрано записи клієнтів, у яких поле company_name є порожнім, що вказує на фізичних осіб.
 
 Скріншот
 
@@ -400,7 +406,7 @@ SELECT * FROM customers WHERE company_name IS NULL;
 SELECT * FROM customers WHERE company_name IS NOT NULL;
 ```
 
-Результат: 
+Результат: Вибрано записи клієнтів, у яких поле company_name містить значення, що вказує на юридичних осіб.
 
 Скріншот
 
@@ -417,7 +423,7 @@ WHERE (contact_name LIKE 'І%' OR contact_name LIKE 'К%')
 
 ```
 
-Результат: 
+Результат: Знайдено клієнти, які відповідають зазначеним критеріям фільтрації.
 
 Скріншот
 
@@ -434,7 +440,7 @@ WHERE city NOT IN ('Київ', 'Харків')
 
 ```
 
-Результат: 
+Результат: Знайдено клієнти, які мають український номер телефону і не знаходяться у Києві або Харкові.
 
 Скріншот
 
@@ -451,7 +457,7 @@ WHERE city IN ('Київ', 'Львів', 'Одеса')
 
 ```
 
-Результат: 
+Результат: Знайдено постачальники, що відповідають заданим критеріям.
 
 Скріншот
 
@@ -468,7 +474,7 @@ WHERE (company_name LIKE '%Техно%' OR company_name LIKE '%Market%')
 
 ```
 
-Результат: 
+Результат: Знайдено постачальників, назва яких містить 'Техно' або 'Market' і які мають вказаний номер телефону.
 
 Скріншот
 
@@ -485,7 +491,7 @@ WHERE postal_code BETWEEN '02000' AND '04999'
 
 ```
 
-Результат: 
+Результат: Знайдено постачальників, поштовий індекс якого знаходиться в зазначеному діапазоні.
 
 Скріншот
 
@@ -501,7 +507,7 @@ ORDER BY city ASC, contact_name ASC;
 
 ```
 
-Результат: 
+Результат: Виведено клієнтів, відсортованих спочатку за містом, а потім за іменем контакту в межах кожного міста.
 
 Скріншот
 
@@ -518,7 +524,7 @@ ORDER BY r.region_name ASC, s.company_name DESC;
 
 ```
 
-Результат: 
+Результат: Виведено постачальників, відсортованих спочатку за назвою області, а потім за назвою компанії у зворотному алфавітному порядку.
 
 Скріншот
 
@@ -534,7 +540,7 @@ ORDER BY category_id ASC, unit_price DESC;
 
 ```
 
-Результат: 
+Результат: Виведено товари, відсортовані спочатку за ідентифікатором категорії, а потім за ціною від найдорожчого до найдешевшого.
 
 Скріншот
 
@@ -551,7 +557,7 @@ LIMIT 5 OFFSET 10;
 
 ```
 
-Результат: 
+Результат: Виведено клієнтів з 11 по 15, відсортованих за датою реєстрації від найновіших.
 
 Скріншот
 
@@ -568,7 +574,7 @@ LIMIT 5 OFFSET 5;
 
 ```
 
-Результат: 
+Результат: Виведено постачальників з 6 по 10, відсортованих в алфавітному порядку.
 
 Скріншот
 
@@ -585,7 +591,7 @@ WHERE (product_name ILIKE '%Samsung%' OR product_name ILIKE '%Apple%')
 
 ```
 
-Результат: 
+Результат: Знайдено товари, назва яких містить 'Samsung' або 'Apple', але не містить 'чохол'.
 
 Скріншот
 
@@ -601,20 +607,21 @@ WHERE (contact_name LIKE 'А%' OR contact_name LIKE '%енко%')
   AND city NOT LIKE 'Київ';
 ```
 
-Результат: 
+Результат: Знайдено клієнти, що відповідають заданим критеріям.
 
 Скріншот
 
 <img width="1080" height="360" alt="image" src="https://github.com/user-attachments/assets/41f94584-9054-416f-9c45-b70035f977e6" />
 
-### Вивести клієнтів з контактним ім’ям, що починається на «А» або містить «енко», але не з Києва
+### Вивести категорії з назвою, що починається на «Е» або містить «техніка», але без опису.
 
 ```sql
 -- Завдання 1.2
-SELECT customer_id, contact_name, city, email
-FROM customers
-WHERE (contact_name LIKE 'А%' OR contact_name LIKE '%енко%')
-  AND city NOT LIKE 'Київ';
+SELECT product_id, product_name, unit_price
+FROM products
+WHERE (product_name LIKE '%Pro%' OR product_name LIKE '%Ultra%')
+  AND product_name NOT LIKE '%Demo%'
+  AND unit_price > 500;
 
 ```
 
@@ -622,7 +629,7 @@ WHERE (contact_name LIKE 'А%' OR contact_name LIKE '%енко%')
 
 Скріншот
 
-<img width="943" height="353" alt="image" src="https://github.com/user-attachments/assets/b1868b10-fc47-4c13-8374-063f8815d899" />
+<img width="698" height="240" alt="image" src="https://github.com/user-attachments/assets/6bd4873a-7d32-4fa3-9c81-4dcc25494416" />
 
 ### Вивести клієнтів із Львова, Одеси або Харкова, але з email, відмінним від Gmail.
 
